@@ -147,7 +147,15 @@ namespace ksu.Cis501.Project_1
             else
                 Console.WriteLine("Invalid Option");
 
-           
+
+            /// <summary>
+            /// Method to sell specific stocks in a portfolio. Returns amount gained from the transaction.
+            /// User input required. 
+            /// </summary>
+            /// <returns></returns>
+        
+
+
 
 
         }

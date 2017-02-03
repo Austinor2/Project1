@@ -117,29 +117,32 @@ namespace ksu.Cis501.Project_1
 
                 Console.WriteLine("(1)" + portfolios[0].id);
 
-                if (portfolios[1] != null)
+                if (portfolios[1].id != "temp2")
                     Console.WriteLine("(2)" + portfolios[1].id);
-                if (portfolios[2] != null)
+                if (portfolios[2].id != "temp3")
                     Console.WriteLine("(3)" + portfolios[2].id);
 
                 choice = Convert.ToInt32(Console.ReadLine());
             }
             if(choice == 1)
             {
-                portfolios[0] = null;
+                portfolios[0].id = "temp1";
                 portfolios[0] = portfolios[1];
                 portfolios[1] = portfolios[2];
-                portfolios[2] = null;
+                portfolios[2].id = "temp3";
+                Sell.sellAllStock(this);
             }
             else if(choice == 2)
             {
-                portfolios[1] = null;
+                portfolios[1].id = "temp2";
                 portfolios[1] = portfolios[2];
-                portfolios[2] = null;
+                portfolios[2].id = "temp3";
+                Sell.sellAllStock(this);
             }
             else if(choice == 3)
             {
-                portfolios[2] = null;
+                portfolios[2].id = "temp3";
+                Sell.sellAllStock(this);
             }
             else
             {

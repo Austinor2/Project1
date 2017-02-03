@@ -39,7 +39,7 @@ namespace ksu.Cis501.Project_1
         /// the requested funds.
         /// </summary>
         /// <returns></returns>
-        public static double withdrawl()
+        public static double withdrawl(Portfolio user)
         {
             Console.Clear();
             double amount = -1;
@@ -48,11 +48,26 @@ namespace ksu.Cis501.Project_1
             Console.WriteLine("How much money would you like to withdrawl: ");
             amount = Convert.ToDouble(Console.ReadLine()) + 4.99;
 
-            if(amount > getBalance)
+            if(amount > getBalance + Sell.getFullSellAmount(user))
             {
                 Console.Clear();
                 Console.WriteLine("Insuffiecent Funds!");
-                Console.WriteLine("What positions would you like to sell in order to fulfill the withdraw transaction?");
+
+            }
+            else if(amount > getBalance && amount < getBalance + Sell.getFullSellAmount(user))
+            {
+                Console.Clear();
+                Console.WriteLine("Insuffiecent Funds!");
+                Console.WriteLine("What Portfolio would you like to sell from in order to fulfill the withdraw transaction?");
+
+                Console.WriteLine("(1)" + user.getPortfolios[0].id);
+
+                if (user.getPortfolios[1].id != "temp2")
+                    Console.WriteLine("(2)" + user.getPortfolios[1].id);
+                if (user.getPortfolios[2].id != "temp3")
+                    Console.WriteLine("(3)" + user.getPortfolios[2].id);
+
+                Console.WriteLine("Your new balance is: $" + Sell.sellStock(user.getPortfolios[Convert.ToInt32(Console.ReadLine()) - 1].stockInfo) + Funds.balance);
                 Console.ReadLine();
             }
             else
@@ -65,6 +80,8 @@ namespace ksu.Cis501.Project_1
             return balance;
 
         }
+
+
 
 
 

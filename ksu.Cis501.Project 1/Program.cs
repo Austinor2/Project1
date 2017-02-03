@@ -69,7 +69,7 @@ namespace ksu.Cis501.Project_1
                     }
                     else
                     {
-                        Funds.withdrawl();
+                        Funds.withdrawl(user);
                     }
                     
                 }
@@ -96,6 +96,11 @@ namespace ksu.Cis501.Project_1
                 }
                 Console.Clear();
             }
+
+
+
+
+
             
         }
     }
