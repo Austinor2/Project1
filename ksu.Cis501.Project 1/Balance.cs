@@ -29,7 +29,7 @@ namespace ksu.Cis501.Project_1
 
 
         /// <summary>
-        /// Shows positions balance, the percentage of each stock in the account,and the amount in dollars in each stock in the account equivalent to selling all stocks at time of report. 
+        /// Shows positions balance, the percentage of each stock in a specific portfolio,and the amount in dollars in each stock in the portfolio equivalent to selling all stocks at time of report. 
         /// </summary>
         public static void posBalance(Portfolio users)
         {
@@ -61,14 +61,112 @@ namespace ksu.Cis501.Project_1
 
                 choice = Convert.ToInt32(Console.ReadLine());
             }
-
+            Console.Clear();
             Console.WriteLine("--- " + users.getPortfolios[choice - 1].id + " ---");
 
             Console.WriteLine("Total investment: $" + Sell.getFullSellAmount(users.getPortfolios[choice - 1]));
 
             Console.WriteLine("Percentage of Account: " + (Sell.getFullSellAmount(users.getPortfolios[choice - 1]) / totalInStocks) * 100  + "%");
+            
+
+            double numberOfStocks = 0;
+            for (int y = 0; y < 25; y++)
+            {
+
+                if (users.getPortfolios[choice - 1].stockInfo[y, 2] != null)
+                {
+                    numberOfStocks += Convert.ToDouble(users.getPortfolios[choice - 1].stockInfo[y, 2]);
+
+
+                }
+
+            }
+
+            int o = 0;
+            for (int i = 0; i < 25; i++)
+            {
+
+                if (users.getPortfolios[choice - 1].stockInfo[i, 1] != "0")
+                {
+                    o++;
+                    Console.WriteLine("$" + users.getPortfolios[choice - 1].stockInfo[i, 1] + "  -(" + (Convert.ToDouble(users.getPortfolios[choice - 1].stockInfo[i, 2]) / numberOfStocks) * 100 + "%)" + users.getPortfolios[choice - 1].stockInfo[i, 0]);
+                }
+
+            }
+
+
+
             Console.ReadLine();
         }
+
+
+        /// <summary>
+        /// Shows the stock information across the entire account and all portfolios.
+        /// </summary>
+        /// <param name="users"></param>
+        public static void accBalance(Portfolio users)
+        {
+            Console.Clear();
+            double totalInStocks = 0;
+
+            for (int i = 0; i < 3; i++)
+            {
+                totalInStocks += Sell.getFullSellAmount(users.getPortfolios[i]);
+            }
+            int choice = -1;
+
+            if (users.getPortfolios[0].id == "temp1")
+            {
+                Console.WriteLine("You have not created any portfolios yet!");
+                Console.ReadLine();
+                return;
+            }
+            
+            Console.Clear();
+
+            for (int p = 0; p < 3; p++)
+            {
+                Console.WriteLine("\n");
+                Console.WriteLine("--- " + users.getPortfolios[p].id + " ---");
+
+                Console.WriteLine("Total investment: $" + Sell.getFullSellAmount(users.getPortfolios[p]));
+
+                Console.WriteLine("Percentage of Account: " + (Sell.getFullSellAmount(users.getPortfolios[p]) / totalInStocks) * 100 + "%");
+               
+
+                double numberOfStocks = 0;
+                for (int y = 0; y < 25; y++)
+                {
+
+                    if (users.getPortfolios[p].stockInfo[y, 2] != null)
+                    {
+                        numberOfStocks += Convert.ToDouble(users.getPortfolios[p].stockInfo[y, 2]);
+
+
+                    }
+
+                }
+
+                int o = 0;
+                for (int i = 0; i < 25; i++)
+                {
+
+                    if (users.getPortfolios[p].stockInfo[i, 1] != "0")
+                    {
+                        o++;
+                        Console.WriteLine("$" + users.getPortfolios[p].stockInfo[i, 1] + "  -(" + (Convert.ToDouble(users.getPortfolios[p].stockInfo[i, 2]) / numberOfStocks) * 100 + "%)" + users.getPortfolios[p].stockInfo[i, 0]);
+                    }
+
+                }
+            }
+
+
+
+            Console.ReadLine();
+        }
+
+
+
 
 
         /// <summary>

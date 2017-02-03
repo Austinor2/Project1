@@ -152,29 +152,5 @@ namespace ksu.Cis501.Project_1
             return;
         }
 
-        /// <summary>
-        /// Shows the balance in dollar amount and percentage of the total portfolio
-        /// </summary>
-        public void cashPosBalance()
-        {
-
-        }
-
-        /// <summary>
-        /// Shows the percentage of each stock in this portfolio and the amount in dollars of each stock at the moment the report is created
-        /// </summary>
-        public void PosBalance()
-        {
-
-        }
-
-        /// <summary>
-        /// Shows a gain loss report in dollar amounts based on the period(Start/end date)
-        /// </summary>
-        public void gainLossReport()
-        {
-
-        }
-
     }
 }

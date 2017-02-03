@@ -150,12 +150,13 @@ namespace ksu.Cis501.Project_1
                     Console.ReadLine();
                     return;
                 }
+                Console.Clear();
                 Console.WriteLine("Total shares bought: " + totalStocksBought);
                 Funds.balance = Funds.balance - (totalStocksBought * stockLookup(ticker, out stockIndex) + 9.99);
 
                 portfolios[portIndex].stockInfo[stockIndex, 1] = (Convert.ToDouble(portfolios[portIndex].stockInfo[stockIndex, 1]) + (totalStocksBought * stockLookup(ticker, out stockIndex)).ToString());
                 portfolios[portIndex].stockInfo[stockIndex, 2] = (Convert.ToInt32(portfolios[portIndex].stockInfo[stockIndex, 2]) + totalStocksBought).ToString();
-
+                Console.ReadLine();
             }
             else
             {

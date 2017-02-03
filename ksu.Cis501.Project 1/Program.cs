@@ -50,7 +50,7 @@ namespace ksu.Cis501.Project_1
                 }
                 else if (answer == 3)
                 {
-
+                    Balance.posBalance(user);
                 }
                 else if (answer == 4)
                 {
@@ -67,7 +67,7 @@ namespace ksu.Cis501.Project_1
                     }
                     else if(p == 2)
                     {
-                        Balance.posBalance(user);
+                        Balance.accBalance(user);
                     }
                     else
                     {
