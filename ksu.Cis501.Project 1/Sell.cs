@@ -42,15 +42,14 @@ namespace ksu.Cis501.Project_1
         {
             double totalGains = 0;
 
-            for(int l = 0; l < 3; l++)
-            {
+            
                 for (int i = 0; i < 25; i++)
                 {
-                    totalGains += Convert.ToDouble(user.getPortfolios[l].stockInfo[i, 1]);
-                    user.getPortfolios[l].stockInfo[i, 1] = "0";
-                    user.getPortfolios[l].stockInfo[i, 2] = null;
+                    totalGains += Convert.ToDouble(user.stockInfo[i, 1]);
+                    user.stockInfo[i, 1] = "0";
+                    user.stockInfo[i, 2] = null;
                 }
-            }
+            
             Funds.balance += totalGains;
             return totalGains;
 
@@ -60,13 +59,11 @@ namespace ksu.Cis501.Project_1
         {
             double totalGains = 0;
 
-            for (int l = 0; l < 3; l++)
-            {
                 for (int i = 0; i < 25; i++)
                 {
-                    totalGains += Convert.ToDouble(user.getPortfolios[l].stockInfo[i, 1]);
+                    totalGains += Convert.ToDouble(user.stockInfo[i, 1]);
                 }
-            }
+            
             return totalGains;
 
         }

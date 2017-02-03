@@ -93,7 +93,9 @@ namespace ksu.Cis501.Project_1
             }
             else
             {
-                Console.WriteLine("Not a valid Portfolio ID");
+                Console.Clear();
+                Console.WriteLine("Not a valid Portfolio ID!");
+                Console.ReadLine();
                 return;
             }
 
@@ -113,9 +115,11 @@ namespace ksu.Cis501.Project_1
                 Console.WriteLine("Enter number of stocks to purchase: ");
                 numOfStocks = Convert.ToInt32(Console.ReadLine());
                 double totalCost = (numOfStocks * stockLookup(ticker, out stockIndex) + 9.99);
-                if(totalCost > Funds.balance)
+                if (totalCost > Funds.balance)
                 {
-                    Console.WriteLine("Insufficient Funds");
+                    Console.Clear();
+                    Console.WriteLine("Insufficient Funds!");
+                    Console.ReadLine();
                     return;
                 }
                 Console.WriteLine("Total Cost: $" + totalCost);
@@ -131,10 +135,19 @@ namespace ksu.Cis501.Project_1
                 Console.WriteLine("NOTE: Ticker501 Does not support buying fraction stocks numbers will be rounded down.");
                 Console.WriteLine("Enter dollar amount to purchase: ");
                 dollarAmountofStocks = Convert.ToDouble(Console.ReadLine());
+                if (dollarAmountofStocks < stockLookup(ticker, out stockIndex))
+                {
+                    Console.Clear();
+                    Console.WriteLine("Not enough to purchase 1 stock!");
+                    Console.ReadLine();
+                    return;
+                }
                 double totalStocksBought = Math.Floor(dollarAmountofStocks / stockLookup(ticker, out stockIndex));
                 if (totalStocksBought * stockLookup(ticker, out stockIndex) + 9.99 > Funds.balance)
                 {
-                    Console.WriteLine("Insufficient Funds");
+                    Console.Clear();
+                    Console.WriteLine("Insufficient Funds!");
+                    Console.ReadLine();
                     return;
                 }
                 Console.WriteLine("Total shares bought: " + totalStocksBought);
@@ -145,15 +158,11 @@ namespace ksu.Cis501.Project_1
 
             }
             else
-                Console.WriteLine("Invalid Option");
+            {
+                Console.WriteLine("Invalid Option!");
+                Console.ReadLine();
+            }
 
-
-            /// <summary>
-            /// Method to sell specific stocks in a portfolio. Returns amount gained from the transaction.
-            /// User input required. 
-            /// </summary>
-            /// <returns></returns>
-        
 
 
 

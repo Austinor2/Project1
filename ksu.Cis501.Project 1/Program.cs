@@ -54,6 +54,27 @@ namespace ksu.Cis501.Project_1
                 }
                 else if (answer == 4)
                 {
+                    Console.Clear();
+                    int p = 0;
+                    Console.WriteLine("What would you like to access?");
+                    Console.WriteLine("(1)Account Balance");
+                    Console.WriteLine("(2)Positon Balance");
+                    p = Convert.ToInt32(Console.ReadLine());
+
+                    if(p == 1)
+                    {
+                        Balance.cashBalance(user);
+                    }
+                    else if(p == 2)
+                    {
+                        Balance.posBalance(user);
+                    }
+                    else
+                    {
+                        Console.Clear();
+                        Console.WriteLine("Invalid option!");
+                        Console.ReadLine();
+                    }
 
                 }
                 else if (answer == 5)

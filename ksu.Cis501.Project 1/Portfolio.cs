@@ -126,27 +126,28 @@ namespace ksu.Cis501.Project_1
             }
             if(choice == 1)
             {
+                Sell.sellAllStock(this.getPortfolios[0]);
                 portfolios[0].id = "temp1";
                 portfolios[0] = portfolios[1];
                 portfolios[1] = portfolios[2];
                 portfolios[2].id = "temp3";
-                Sell.sellAllStock(this);
             }
             else if(choice == 2)
             {
+                Sell.sellAllStock(this.getPortfolios[1]);
                 portfolios[1].id = "temp2";
                 portfolios[1] = portfolios[2];
-                portfolios[2].id = "temp3";
-                Sell.sellAllStock(this);
+                portfolios[2].id = "temp3";                
             }
             else if(choice == 3)
             {
-                portfolios[2].id = "temp3";
-                Sell.sellAllStock(this);
+                Sell.sellAllStock(this.getPortfolios[2]);
+                portfolios[2].id = "temp3";                
             }
             else
             {
                 Console.WriteLine("Invalid Option");
+                Console.ReadLine();
             }
             return;
         }
