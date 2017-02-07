@@ -13,6 +13,8 @@ namespace ksu.Cis501.Project_1
         {
             int choice = -1;
             Console.Clear();
+            Console.WriteLine("Only whole stocks can be sold. Numbers will be rounded down");
+            Console.WriteLine("A flat fee of $9.99 will be applied to each transaction.");
             Console.WriteLine("Which stock would you like to sell?");
             for (int i = 0; i < 25; i++)
             {
@@ -28,7 +30,7 @@ namespace ksu.Cis501.Project_1
             double amountToSell = Convert.ToDouble(stockInfo[choice, 1]);
             stockInfo[choice, 1] = "0";
             stockInfo[choice, 2] = null;
-            Funds.balance += amountToSell;
+            Funds.balance += amountToSell - 9.99;
             return amountToSell;
 
         }

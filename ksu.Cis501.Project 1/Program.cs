@@ -36,6 +36,7 @@ namespace ksu.Cis501.Project_1
                 Console.WriteLine("(4)Account Balance");
                 Console.WriteLine("(5)Add/Withdrawl Funds");
                 Console.WriteLine("(6)Buy a stock");
+                Console.WriteLine("(7)Sell a stock");
                 Console.WriteLine("(0)Exit");
 
                 answer = Convert.ToInt32(Console.ReadLine());
@@ -111,9 +112,51 @@ namespace ksu.Cis501.Project_1
 
                     
                 }
+                else if (answer == 7)
+                {
+                    Console.Clear();
+
+                    int choice = 0;
+                    if (user.getPortfolios[0].id == "temp1" || user.getPortfolios[0].id == "temp2" || user.getPortfolios[0].id == "temp3")
+                    {
+                        Console.WriteLine("You have not created any portfolios yet!");
+                        Console.ReadLine();
+                        return;
+                    }
+                    else
+                    {
+                        Console.WriteLine("Which portfolio would you like to access: ");
+
+                        Console.WriteLine("(1)" + user.getPortfolios[0].id);
+
+                        if (user.getPortfolios[1].id != "temp1" && user.getPortfolios[1].id != "temp2" && user.getPortfolios[1].id != "temp3")
+                            Console.WriteLine("(2)" + user.getPortfolios[1].id);
+                        if (user.getPortfolios[2].id != "temp1" && user.getPortfolios[2].id != "temp2" && user.getPortfolios[2].id != "temp3")
+                            Console.WriteLine("(3)" + user.getPortfolios[2].id);
+
+                        choice = Convert.ToInt32(Console.ReadLine());
+                    }
+                    if (choice == 1)
+                        Sell.sellStock(user.getPortfolios[0].stockInfo);
+                    else if (choice == 2)
+                        Sell.sellStock(user.getPortfolios[1].stockInfo);
+                    else if (choice == 3)
+                        Sell.sellStock(user.getPortfolios[2].stockInfo);
+                    else
+                    {
+                        Console.WriteLine("Invalid Option");
+                        Console.ReadLine();
+                    }
+
+
+
+
+                }
                 else
                 {
+                    Console.Clear();
                     Console.WriteLine("Invalid Option");
+                    Console.ReadLine();
                 }
                 Console.Clear();
             }

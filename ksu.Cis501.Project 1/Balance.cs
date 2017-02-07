@@ -123,8 +123,15 @@ namespace ksu.Cis501.Project_1
             }
             
             Console.Clear();
+            int numOfAccounts = 1;
+            if (users.getPortfolios[1].id == "temp2")
+                numOfAccounts = 1;
+            else if (users.getPortfolios[2].id == "temp3")
+                numOfAccounts = 2;
+            else
+                numOfAccounts = 3;
 
-            for (int p = 0; p < 3; p++)
+                for (int p = 0; p < numOfAccounts; p++)
             {
                 Console.WriteLine("\n");
                 Console.WriteLine("--- " + users.getPortfolios[p].id + " ---");

@@ -53,7 +53,7 @@ namespace ksu.Cis501.Project_1
             }
             set
             {
-
+                identifier = value;
             }
         }
 
@@ -105,7 +105,7 @@ namespace ksu.Cis501.Project_1
         {
             Console.Clear();
             int choice = 0;
-            if(portfolios[0].id == "temp1")
+            if(portfolios[0].id == "temp1" || portfolios[0].id == "temp2" || portfolios[0].id == "temp3")
             {
                 Console.WriteLine("You have not created any portfolios yet!");
                 Console.ReadLine();
@@ -117,9 +117,9 @@ namespace ksu.Cis501.Project_1
 
                 Console.WriteLine("(1)" + portfolios[0].id);
 
-                if (portfolios[1].id != "temp2")
+                if (portfolios[1].id != "temp1" && portfolios[1].id != "temp2" && portfolios[1].id != "temp3")
                     Console.WriteLine("(2)" + portfolios[1].id);
-                if (portfolios[2].id != "temp3")
+                if (portfolios[2].id != "temp1" && portfolios[2].id != "temp2" && portfolios[2].id != "temp3")
                     Console.WriteLine("(3)" + portfolios[2].id);
 
                 choice = Convert.ToInt32(Console.ReadLine());
@@ -127,16 +127,23 @@ namespace ksu.Cis501.Project_1
             if(choice == 1)
             {
                 Sell.sellAllStock(this.getPortfolios[0]);
-                portfolios[0].id = "temp1";
-                portfolios[0] = portfolios[1];
-                portfolios[1] = portfolios[2];
+
+                portfolios[0].id = portfolios[1].id;
+                portfolios[0].stockInfo = portfolios[1].stockInfo;
+
+
+                portfolios[1].id = portfolios[2].id;
+                portfolios[1].stockInfo = portfolios[2].stockInfo;
+
                 portfolios[2].id = "temp3";
             }
             else if(choice == 2)
             {
                 Sell.sellAllStock(this.getPortfolios[1]);
-                portfolios[1].id = "temp2";
-                portfolios[1] = portfolios[2];
+
+                portfolios[1].id = portfolios[2].id;
+                portfolios[1].stockInfo = portfolios[2].stockInfo;
+
                 portfolios[2].id = "temp3";                
             }
             else if(choice == 3)

@@ -15,7 +15,7 @@ namespace ksu.Cis501.Project_1
         public string[,] fullStockInfo = new string[25, 3];
         public Buy()
         {
-            string path = @"C:\Users\AAOlu\Desktop\Ticker.txt";
+            string path = @"C:\Users\Austin\Desktop\Ticker.txt";
             using (StreamReader sr = new StreamReader(path))
             {
                 for (int i = 0; i < stockInfo.Length; i++)
