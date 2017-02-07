@@ -15,6 +15,7 @@ namespace ksu.Cis501.Project_1
         /// <returns></returns>
         public static double sellStock(string[,] stockInfo)
         {
+            double amountToSell = 0;
             int choice = -1;
             Console.Clear();
             Console.WriteLine("Only whole stocks can be sold. Numbers will be rounded down");
@@ -30,12 +31,27 @@ namespace ksu.Cis501.Project_1
 
             }
             choice = Convert.ToInt32(Console.ReadLine());
+            int numOfStocksToSell = 0;
+            Console.WriteLine("How many stocks would you like to sell?");
+            Console.WriteLine("You currently own " + stockInfo[choice, 2] + " stocks.");
+            numOfStocksToSell = Convert.ToInt32(Console.ReadLine());
+            if (numOfStocksToSell > Convert.ToInt32(stockInfo[choice, 2]))
+            {
+                Console.WriteLine("You do not own that many stocks!");
+                Console.ReadLine();
+                return 0;
+            }
+            else
+            {
+                double currentPriceOfStock = (Convert.ToDouble(stockInfo[choice, 1]) /Convert.ToDouble(stockInfo[choice, 2]));
+                amountToSell = Convert.ToDouble(stockInfo[choice, 1]);
+                stockInfo[choice, 1] = (Convert.ToDouble(stockInfo[choice, 1]) - (numOfStocksToSell * currentPriceOfStock)).ToString();//This line needs to be update to reflect current cost of 
+                stockInfo[choice, 2] = (Convert.ToInt32(stockInfo[choice, 2]) - numOfStocksToSell).ToString();
+                Funds.balance += amountToSell - 9.99;
 
-            double amountToSell = Convert.ToDouble(stockInfo[choice, 1]);
-            stockInfo[choice, 1] = "0";
-            stockInfo[choice, 2] = null;
-            Funds.balance += amountToSell - 9.99;
-            return amountToSell;
+            }
+
+                return amountToSell;
 
         }
 

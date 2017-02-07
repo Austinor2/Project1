@@ -66,7 +66,7 @@ namespace ksu.Cis501.Project_1
 
             Console.WriteLine("Total investment: $" + Sell.getFullSellAmount(users.getPortfolios[choice - 1]));
 
-            Console.WriteLine("Percentage of Account: " + (Sell.getFullSellAmount(users.getPortfolios[choice - 1]) / totalInStocks) * 100  + "%");
+            Console.WriteLine("Percentage of Account: " + (Sell.getFullSellAmount(users.getPortfolios[choice - 1]) / totalInStocks).ToString("0.##%"));
             
 
             double numberOfStocks = 0;
