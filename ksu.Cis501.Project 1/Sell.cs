@@ -8,7 +8,11 @@ namespace ksu.Cis501.Project_1
 {
     static class Sell
     {
-
+        /// <summary>
+        /// Method that pulls up a menu that allows a stock to be sold. 
+        /// </summary>
+        /// <param name="stockInfo"></param>
+        /// <returns></returns>
         public static double sellStock(string[,] stockInfo)
         {
             int choice = -1;
@@ -56,7 +60,12 @@ namespace ksu.Cis501.Project_1
             return totalGains;
 
         }
-
+        
+        /// <summary>
+        /// Mehtod that returns the amount of money that would be gained if you were to sell all the stock in a portfolio at a specific time. 
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
         public static double getFullSellAmount(Portfolio user)
         {
             double totalGains = 0;

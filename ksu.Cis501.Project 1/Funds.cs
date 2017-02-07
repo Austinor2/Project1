@@ -10,6 +10,9 @@ namespace ksu.Cis501.Project_1
     {
         public static double balance { get; set; }
 
+        /// <summary>
+        /// Used to get the balance of the account
+        /// </summary>
         public static double getBalance
         {
               get

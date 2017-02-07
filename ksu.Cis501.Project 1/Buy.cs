@@ -13,6 +13,10 @@ namespace ksu.Cis501.Project_1
 
         string[] stockInfo = new string[25];
         public string[,] fullStockInfo = new string[25, 3];
+
+        /// <summary>
+        /// Constructor that fills up the stockinfo from the text file
+        /// </summary>
         public Buy()
         {
             string path = @"C:\Users\Austin\Desktop\Ticker.txt";

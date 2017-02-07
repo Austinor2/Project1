@@ -113,20 +113,20 @@ namespace ksu.Cis501.Project_1
             {
                 totalInStocks += Sell.getFullSellAmount(users.getPortfolios[i]);
             }
-            int choice = -1;
+            //int choice = -1;
 
-            if (users.getPortfolios[0].id == "temp1")
+            if (users.getPortfolios[0].id == "temp1" || users.getPortfolios[0].id == "temp2" || users.getPortfolios[0].id == "temp3")
             {
-                Console.WriteLine("You have not created any portfolios yet!");
+                Console.WriteLine("No available portfolios to display!");
                 Console.ReadLine();
                 return;
             }
             
             Console.Clear();
             int numOfAccounts = 1;
-            if (users.getPortfolios[1].id == "temp2")
+            if (users.getPortfolios[1].id == "temp1" || users.getPortfolios[1].id == "temp2" || users.getPortfolios[1].id == "temp3")
                 numOfAccounts = 1;
-            else if (users.getPortfolios[2].id == "temp3")
+            else if (users.getPortfolios[2 ].id == "temp1" || users.getPortfolios[2].id == "temp2" || users.getPortfolios[2].id == "temp3")
                 numOfAccounts = 2;
             else
                 numOfAccounts = 3;
@@ -138,7 +138,7 @@ namespace ksu.Cis501.Project_1
 
                 Console.WriteLine("Total investment: $" + Sell.getFullSellAmount(users.getPortfolios[p]));
 
-                Console.WriteLine("Percentage of Account: " + (Sell.getFullSellAmount(users.getPortfolios[p]) / totalInStocks) * 100 + "%");
+                Console.WriteLine("Percentage of Account: " + (Sell.getFullSellAmount(users.getPortfolios[p]) / totalInStocks).ToString("0.##%"));
                
 
                 double numberOfStocks = 0;
@@ -161,7 +161,7 @@ namespace ksu.Cis501.Project_1
                     if (users.getPortfolios[p].stockInfo[i, 1] != "0")
                     {
                         o++;
-                        Console.WriteLine("$" + users.getPortfolios[p].stockInfo[i, 1] + "  -(" + (Convert.ToDouble(users.getPortfolios[p].stockInfo[i, 2]) / numberOfStocks) * 100 + "%)" + users.getPortfolios[p].stockInfo[i, 0]);
+                        Console.WriteLine("$" + users.getPortfolios[p].stockInfo[i, 1] + "  -(" + (Convert.ToDouble(users.getPortfolios[p].stockInfo[i, 2]) / numberOfStocks).ToString("0.##%") + ") "  + users.getPortfolios[p].stockInfo[i, 0]);
                     }
 
                 }

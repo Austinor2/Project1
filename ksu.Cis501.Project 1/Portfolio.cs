@@ -21,12 +21,18 @@ namespace ksu.Cis501.Project_1
         
 
 
-
+        /// <summary>
+        /// Default constructor
+        /// </summary>
         public Portfolio()
         {
           
         }
 
+        /// <summary>
+        /// Sets the id for the account as well as defaults all the stock info to 0.
+        /// </summary>
+        /// <param name="id"></param>
         public Portfolio(string id)
         {
             identifier = id;
@@ -44,7 +50,9 @@ namespace ksu.Cis501.Project_1
         }
 
 
-        // Properties.
+        /// <summary>
+        /// Used to both get and set the id of a portfolio.
+        /// </summary>
         public string id
         {
             get
@@ -57,7 +65,9 @@ namespace ksu.Cis501.Project_1
             }
         }
 
-
+        /// <summary>
+        /// Used to get the portfolios from the main portfolio account.
+        /// </summary>
         public Portfolio[] getPortfolios
         {
             get
