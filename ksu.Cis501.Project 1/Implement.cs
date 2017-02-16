@@ -12,7 +12,7 @@ namespace ksu.Cis501.Project_1
 
 
         /// <summary>
-        /// Method to allow someone to set the volatility of the stock market. 
+        /// Method to allow someonse to set the volatility of the stock market. 
         /// </summary>
         /// <returns></returns>
         public static void changeVolatility()
