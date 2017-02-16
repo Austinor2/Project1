@@ -15,7 +15,7 @@ namespace ksu.Cis501.Project_1
         /// </summary>
         public static double getBalance
         {
-              get
+            get
             {
                 return balance;
             }
@@ -30,7 +30,23 @@ namespace ksu.Cis501.Project_1
             Console.WriteLine("There is a flat-fee per transfer of $4.99");
             Console.WriteLine("Current Balance: $" + getBalance);
             Console.WriteLine("How much money would you like to add: ");
-            balance += Convert.ToDouble(Console.ReadLine()) - 4.99;
+
+
+            bool valid = false;
+            while (!valid)
+            {
+                try
+                {
+                    balance += Convert.ToDouble(Console.ReadLine()) - 4.99;
+                    valid = true;
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Invalid Input");
+                    valid = false;
+                }
+            }
+
             Console.Clear();
             Console.WriteLine("Current Balance: $" + getBalance);
             Console.ReadLine();
@@ -49,15 +65,29 @@ namespace ksu.Cis501.Project_1
             Console.WriteLine("There is a flat-fee per transfer of $4.99");
             Console.WriteLine("Current Balance: $" + getBalance);
             Console.WriteLine("How much money would you like to withdrawl: ");
-            amount = Convert.ToDouble(Console.ReadLine()) + 4.99;
 
-            if(amount > getBalance + Sell.getFullSellAmount(user))
+            bool valid = false;
+            while (!valid)
+            {
+                try
+                {
+                    amount = Convert.ToDouble(Console.ReadLine()) + 4.99;
+                    valid = true;
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Invalid Input");
+                    valid = false;
+                }
+            }
+
+            if (amount > getBalance + Sell.getFullSellAmount(user))
             {
                 Console.Clear();
                 Console.WriteLine("Insuffiecent Funds!");
 
             }
-            else if(amount > getBalance && amount < getBalance + Sell.getFullSellAmount(user))
+            else if (amount > getBalance && amount < getBalance + Sell.getFullSellAmount(user))
             {
                 Console.Clear();
                 Console.WriteLine("Insuffiecent Funds!");
@@ -70,7 +100,7 @@ namespace ksu.Cis501.Project_1
                 if (user.getPortfolios[2].id != "temp3")
                     Console.WriteLine("(3)" + user.getPortfolios[2].id);
 
-                Console.WriteLine("Your new balance is: $" + Sell.sellStock(user.getPortfolios[Convert.ToInt32(Console.ReadLine()) - 1].stockInfo) + Funds.balance);
+                Console.WriteLine("Your new balance is: $" + Sell.sellStock(user.getPortfolios[Convert.ToInt32(Console.ReadLine()) - 1].stockInfo, user.getPortfolios[Convert.ToInt32(Console.ReadLine()) - 1].id) + Funds.balance);
                 Console.ReadLine();
             }
             else

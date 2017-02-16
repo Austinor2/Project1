@@ -7,19 +7,20 @@ using System.Threading.Tasks;
 
 namespace ksu.Cis501.Project_1
 {
-    class Buy
+    static class Buy
     {
 
+        static int numOfTicks = File.ReadAllLines("Ticker.txt").Count();
 
-        string[] stockInfo = new string[25];
-        public string[,] fullStockInfo = new string[25, 3];
+        public static string[] stockInfo = new string[numOfTicks];
+        public static string[,] fullStockInfo = new string[numOfTicks, 3];
 
         /// <summary>
-        /// Constructor that fills up the stockinfo from the text file
+        /// Method that fills up the stockinfo from the text file
         /// </summary>
-        public Buy()
+        public static void loadInfo()
         {
-            string path = @"C:\Users\Austin\Desktop\Ticker.txt";
+            string path = @"Ticker.txt";
             using (StreamReader sr = new StreamReader(path))
             {
                 for (int i = 0; i < stockInfo.Length; i++)
@@ -39,8 +40,6 @@ namespace ksu.Cis501.Project_1
             }
         }
 
-        
-
 
 
 
@@ -49,26 +48,26 @@ namespace ksu.Cis501.Project_1
         /// Will lookup a stock based on the user input and return the price.
         /// </summary>
         /// <returns></returns>
-        public double stockLookup(string ticker, out int stockIndex)
+        public static double stockLookup(string ticker, out int stockIndex)
         {
 
-            for(int i = 0; i < 25; i++)
+            for (int i = 0; i < fullStockInfo.GetLength(0); i++)
             {
-                if(fullStockInfo[i,0] == ticker)
+                if (fullStockInfo[i, 0] == ticker)
                 {
                     stockIndex = i;
                     return Convert.ToDouble(fullStockInfo[i, 2].Substring(1));
-                    
+
                 }
             }
             stockIndex = -1;
-            return - 1;
+            return -1;
         }
 
         /// <summary>
         /// Brings up a window that will ask how a stock will be purchased and proceed to continue with said purchase. 
         /// </summary>
-        public void buyMenu(Portfolio[] portfolios)
+        public static void buyMenu(Portfolio[] portfolios)
         {
 
 
@@ -76,22 +75,30 @@ namespace ksu.Cis501.Project_1
             int choice = 0;
             string portName;
             int portIndex;
-            int numOfStocks;
-            double dollarAmountofStocks;
+            int numOfStocks = -1;
+            double dollarAmountofStocks = 0;
             int stockIndex;
 
             Console.WriteLine("Enter the id of the portfolio you would like to use");
             portName = Console.ReadLine();
 
-            if(portfolios[0].id == portName)
+            while (portName == "")
+            {
+                Console.WriteLine("Invalid Input");
+                portName = Console.ReadLine();
+            }
+
+            Implement.update(Buy.fullStockInfo);
+
+            if (portfolios[0].id == portName)
             {
                 portIndex = 0;
             }
-            else if(portfolios[1].id == portName)
+            else if (portfolios[1].id == portName)
             {
                 portIndex = 1;
             }
-            else if(portfolios[2].id == portName)
+            else if (portfolios[2].id == portName)
             {
                 portIndex = 2;
             }
@@ -108,16 +115,51 @@ namespace ksu.Cis501.Project_1
             Console.WriteLine("Enter the ticker of the stock to buy: ");
             ticker = Console.ReadLine();
             Console.Clear();
-            Console.WriteLine("Current Price per Stock: $" + stockLookup(ticker,out stockIndex));
+            while (stockLookup(ticker, out stockIndex) == -1)
+            {
+                Console.WriteLine("Invalid Input");
+                ticker = Console.ReadLine();
+            }
+            Console.Clear();
+            Console.WriteLine("Current Price per Stock: $" + stockLookup(ticker, out stockIndex).ToString("0.##"));
             Console.WriteLine("(1)Enter number of stocks to purchase.");
             Console.WriteLine("(2)Enter amount in dollars to purchase.");
-            choice = Convert.ToInt32(Console.ReadLine());
+
+            bool valid = false;
+            while (!valid)
+            {
+                try
+                {
+                    choice = Convert.ToInt32(Console.ReadLine());
+                    valid = true;
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Invalid Input");
+                    valid = false;
+                }
+            }
 
             if (choice == 1)
             {
                 Console.Clear();
                 Console.WriteLine("Enter number of stocks to purchase: ");
-                numOfStocks = Convert.ToInt32(Console.ReadLine());
+
+                valid = false;
+                while (!valid)
+                {
+                    try
+                    {
+                        numOfStocks = Convert.ToInt32(Console.ReadLine());
+                        valid = true;
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine("Invalid Input");
+                        valid = false;
+                    }
+                }
+
                 double totalCost = (numOfStocks * stockLookup(ticker, out stockIndex) + 9.99);
                 if (totalCost > Funds.balance)
                 {
@@ -126,7 +168,7 @@ namespace ksu.Cis501.Project_1
                     Console.ReadLine();
                     return;
                 }
-                Console.WriteLine("Total Cost: $" + totalCost);
+                Console.WriteLine("Total Cost: $" + totalCost.ToString("0.##"));
                 Console.ReadLine();
                 Funds.balance = Funds.balance - totalCost;
                 portfolios[portIndex].stockInfo[stockIndex, 1] = (Convert.ToDouble(portfolios[portIndex].stockInfo[stockIndex, 1]) + totalCost - 9.99).ToString();
@@ -138,7 +180,22 @@ namespace ksu.Cis501.Project_1
                 Console.Clear();
                 Console.WriteLine("NOTE: Ticker501 Does not support buying fraction stocks numbers will be rounded down.");
                 Console.WriteLine("Enter dollar amount to purchase: ");
-                dollarAmountofStocks = Convert.ToDouble(Console.ReadLine());
+
+                valid = false;
+                while (!valid)
+                {
+                    try
+                    {
+                        dollarAmountofStocks = Convert.ToDouble(Console.ReadLine());
+                        valid = true;
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine("Invalid Input");
+                        valid = false;
+                    }
+                }
+
                 if (dollarAmountofStocks < stockLookup(ticker, out stockIndex))
                 {
                     Console.Clear();
@@ -146,8 +203,8 @@ namespace ksu.Cis501.Project_1
                     Console.ReadLine();
                     return;
                 }
-                double totalStocksBought = Math.Floor(dollarAmountofStocks / stockLookup(ticker, out stockIndex));
-                if (totalStocksBought * stockLookup(ticker, out stockIndex) + 9.99 > Funds.balance)
+                numOfStocks = Convert.ToInt32(Math.Floor(dollarAmountofStocks / stockLookup(ticker, out stockIndex)));
+                if (numOfStocks * stockLookup(ticker, out stockIndex) + 9.99 > Funds.balance)
                 {
                     Console.Clear();
                     Console.WriteLine("Insufficient Funds!");
@@ -155,11 +212,11 @@ namespace ksu.Cis501.Project_1
                     return;
                 }
                 Console.Clear();
-                Console.WriteLine("Total shares bought: " + totalStocksBought);
-                Funds.balance = Funds.balance - (totalStocksBought * stockLookup(ticker, out stockIndex) + 9.99);
+                Console.WriteLine("Total shares bought: " + numOfStocks);
+                Funds.balance = Funds.balance - (numOfStocks * stockLookup(ticker, out stockIndex) + 9.99);
 
-                portfolios[portIndex].stockInfo[stockIndex, 1] = (Convert.ToDouble(portfolios[portIndex].stockInfo[stockIndex, 1]) + (totalStocksBought * stockLookup(ticker, out stockIndex)).ToString());
-                portfolios[portIndex].stockInfo[stockIndex, 2] = (Convert.ToInt32(portfolios[portIndex].stockInfo[stockIndex, 2]) + totalStocksBought).ToString();
+                portfolios[portIndex].stockInfo[stockIndex, 1] = (Convert.ToDouble(portfolios[portIndex].stockInfo[stockIndex, 1]) + (numOfStocks * stockLookup(ticker, out stockIndex)).ToString());
+                portfolios[portIndex].stockInfo[stockIndex, 2] = (Convert.ToInt32(portfolios[portIndex].stockInfo[stockIndex, 2]) + numOfStocks).ToString();
                 Console.ReadLine();
             }
             else
@@ -170,6 +227,12 @@ namespace ksu.Cis501.Project_1
 
 
 
+            FileInfo fi = new FileInfo("GainLoss.txt");
+
+            using (StreamWriter sw = fi.AppendText())
+            {
+                sw.WriteLine(portName + ",B," + numOfStocks + "," + ticker + "," + stockLookup(ticker, out stockIndex));
+            }
 
 
         }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,17 +9,19 @@ namespace ksu.Cis501.Project_1
 {
     class Portfolio
     {
-        
+
         string identifier;
+
+        static int numOfTicks = File.ReadAllLines("Ticker.txt").Count();
 
         /// <summary>
         /// Index zero is the Ticker, index one is Cash per stock, index 2 is # of shares per stock. 
         /// </summary>
-        public string[,] stockInfo = new string[25,3];
-        
+        public string[,] stockInfo = new string[numOfTicks, 3];
+
 
         Portfolio[] portfolios = new Portfolio[3];
-        
+
 
 
         /// <summary>
@@ -26,7 +29,7 @@ namespace ksu.Cis501.Project_1
         /// </summary>
         public Portfolio()
         {
-          
+
         }
 
         /// <summary>
@@ -37,7 +40,7 @@ namespace ksu.Cis501.Project_1
         {
             identifier = id;
 
-            for (int p = 0; p < 25; p++)
+            for (int p = 0; p < stockInfo.GetLength(0); p++)
             {
                 for (int y = 1; y < 2; y++)
                 {
@@ -81,29 +84,48 @@ namespace ksu.Cis501.Project_1
         /// </summary>
         public void create()
         {
+            string temp;
             Console.Clear();
-            if(portfolios[2].id != "temp3")
+            if (portfolios[2].id != "temp3" && portfolios[2].id != "temp2" && portfolios[2].id != "temp1")
             {
                 Console.WriteLine("Maximum amount of portfolios has been reached!");
                 Console.WriteLine("Please delete one to continue");
                 Console.ReadLine();
             }
-            else if(portfolios[0].id == "temp1")
+            else if (portfolios[0].id == "temp1" || portfolios[0].id == "temp2" || portfolios[0].id == "temp3")
             {
                 Console.WriteLine("Enter the name of the portfolio: ");
-                portfolios[0].identifier = Console.ReadLine();
+                temp = Console.ReadLine();
+                while (temp == "")
+                {
+                    Console.WriteLine("Invalid Input");
+                    temp = Console.ReadLine();
+                }
+                portfolios[0].identifier = temp;
 
-               
+
             }
-            else if (portfolios[1].id == "temp2")
+            else if (portfolios[1].id == "temp1" || portfolios[1].id == "temp2" || portfolios[1].id == "temp3")
             {
                 Console.WriteLine("Enter the name of the portfolio: ");
-                portfolios[1].identifier = Console.ReadLine();
+                temp = Console.ReadLine();
+                while (temp == "")
+                {
+                    Console.WriteLine("Invalid Input");
+                    temp = Console.ReadLine();
+                }
+                portfolios[1].identifier = temp;
             }
-            else
+            else if (portfolios[2].id == "temp1" || portfolios[2].id == "temp2" || portfolios[2].id == "temp3")
             {
                 Console.WriteLine("Enter the name of the portfolio: ");
-                portfolios[2].identifier = Console.ReadLine();
+                temp = Console.ReadLine();
+                while (temp == "")
+                {
+                    Console.WriteLine("Invalid Input");
+                    temp = Console.ReadLine();
+                }
+                portfolios[2].identifier = temp;
             }
             return;
         }
@@ -115,7 +137,7 @@ namespace ksu.Cis501.Project_1
         {
             Console.Clear();
             int choice = 0;
-            if(portfolios[0].id == "temp1" || portfolios[0].id == "temp2" || portfolios[0].id == "temp3")
+            if (portfolios[0].id == "temp1" || portfolios[0].id == "temp2" || portfolios[0].id == "temp3")
             {
                 Console.WriteLine("You have not created any portfolios yet!");
                 Console.ReadLine();
@@ -123,6 +145,7 @@ namespace ksu.Cis501.Project_1
             }
             else
             {
+
                 Console.WriteLine("Which portfolio would you like to delete: ");
 
                 Console.WriteLine("(1)" + portfolios[0].id);
@@ -132,9 +155,25 @@ namespace ksu.Cis501.Project_1
                 if (portfolios[2].id != "temp1" && portfolios[2].id != "temp2" && portfolios[2].id != "temp3")
                     Console.WriteLine("(3)" + portfolios[2].id);
 
-                choice = Convert.ToInt32(Console.ReadLine());
+
+
+                bool valid = false;
+                while (!valid)
+                {
+                    try
+                    {
+                        choice = Convert.ToInt32(Console.ReadLine());
+                        valid = true;
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine("Invalid Input");
+                        valid = false;
+                    }
+                }
+
             }
-            if(choice == 1)
+            if (choice == 1)
             {
                 Sell.sellAllStock(this.getPortfolios[0]);
 
@@ -147,19 +186,19 @@ namespace ksu.Cis501.Project_1
 
                 portfolios[2].id = "temp3";
             }
-            else if(choice == 2)
+            else if (choice == 2)
             {
                 Sell.sellAllStock(this.getPortfolios[1]);
 
                 portfolios[1].id = portfolios[2].id;
                 portfolios[1].stockInfo = portfolios[2].stockInfo;
 
-                portfolios[2].id = "temp3";                
+                portfolios[2].id = "temp3";
             }
-            else if(choice == 3)
+            else if (choice == 3)
             {
                 Sell.sellAllStock(this.getPortfolios[2]);
-                portfolios[2].id = "temp3";                
+                portfolios[2].id = "temp3";
             }
             else
             {
